@@ -1,0 +1,255 @@
+:root {
+  color-scheme: dark;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #020617;
+  color: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: #020617;
+}
+
+body {
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.main-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(180deg, #020617 0%, #111827 100%);
+}
+
+.main-panel {
+  width: min(100%, 560px);
+}
+
+.title-area {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.title-area h1 {
+  margin: 0 0 10px;
+  font-size: clamp(30px, 7vw, 54px);
+  font-weight: 800;
+}
+
+.title-area p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: clamp(14px, 3.2vw, 20px);
+}
+
+.timer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.timer-option {
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 28px;
+  background: rgba(15, 23, 42, 0.92);
+  min-height: 140px;
+  padding: 24px 16px;
+  font-size: clamp(28px, 7vw, 44px);
+  font-weight: 800;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  transition: transform 0.12s ease, background-color 0.12s ease;
+  touch-action: manipulation;
+}
+
+.timer-option:active {
+  transform: scale(0.97);
+  background: rgba(30, 41, 59, 0.98);
+}
+
+.timer-screen {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020617;
+  user-select: none;
+  touch-action: manipulation;
+  overflow: hidden;
+}
+
+.timer-screen.flash {
+  animation: flash-bg 0.45s steps(2, start) infinite;
+}
+
+.main-button {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  left: 16px;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  backdrop-filter: blur(10px);
+}
+
+.main-button:active {
+  transform: scale(0.97);
+}
+
+.adjust-panel {
+  position: absolute;
+  top: max(16px, env(safe-area-inset-top));
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+}
+
+.adjust-button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.55);
+  padding: 10px 11px;
+  min-width: 50px;
+  font-size: 13px;
+  font-weight: 800;
+  backdrop-filter: blur(10px);
+  touch-action: manipulation;
+}
+
+.adjust-button:active {
+  transform: scale(0.96);
+}
+
+.timer-face {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.countdown {
+  font-size: clamp(110px, 34vw, 280px);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.unit {
+  margin-top: 6px;
+  font-size: clamp(30px, 6vw, 52px);
+  font-weight: 800;
+}
+
+.status {
+  margin-top: 16px;
+  font-size: clamp(16px, 3vw, 28px);
+  color: #cbd5e1;
+}
+
+.hint {
+  margin-top: 22px;
+  font-size: clamp(13px, 2.8vw, 20px);
+  color: rgba(248, 250, 252, 0.85);
+}
+
+@keyframes flash-bg {
+  0%,
+  100% {
+    background: #020617;
+  }
+
+  50% {
+    background: #dc2626;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-screen {
+    padding: 14px;
+  }
+
+  .timer-grid {
+    gap: 10px;
+  }
+
+  .timer-option {
+    min-height: 112px;
+    border-radius: 20px;
+  }
+
+  .main-button {
+    top: max(10px, env(safe-area-inset-top));
+    left: 10px;
+    padding: 10px 14px;
+  }
+
+  .adjust-panel {
+    top: max(10px, env(safe-area-inset-top));
+    right: 10px;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    width: min(180px, calc(100vw - 120px));
+  }
+
+  .adjust-button {
+    min-width: 46px;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .timer-face {
+    padding: 24px 16px;
+  }
+
+  .countdown {
+    font-size: clamp(96px, 30vw, 220px);
+  }
+
+  .unit {
+    font-size: clamp(26px, 5vw, 40px);
+  }
+
+  .status {
+    margin-top: 12px;
+  }
+
+  .hint {
+    margin-top: 18px;
+  }
+}
