@@ -53,6 +53,21 @@ button {
   margin-bottom: 28px;
 }
 
+.release-banner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(251, 191, 36, 0.55);
+  background: rgba(251, 191, 36, 0.16);
+  color: #fef3c7;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
 .title-area h1 {
   margin: 0 0 10px;
   font-size: clamp(30px, 7vw, 54px);
@@ -126,18 +141,18 @@ button {
 .release-badge {
   position: absolute;
   top: max(18px, env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
+  left: 16px;
   z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(251, 191, 36, 0.55);
   border-radius: 999px;
-  background: rgba(15, 23, 42, 0.45);
-  padding: 8px 14px;
-  font-size: 12px;
+  background: rgba(251, 191, 36, 0.18);
+  padding: 8px 12px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  color: rgba(248, 250, 252, 0.85);
+  color: #fef3c7;
   backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.15), 0 0 18px rgba(251, 191, 36, 0.22);
 }
 
 .adjust-panel {

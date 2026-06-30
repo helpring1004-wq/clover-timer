@@ -101,9 +101,11 @@ function updateCountdown() {
 }
 
 function renderMain() {
+  document.title = `Clover Timer v${state.releaseNumber}`;
   app.innerHTML = `
     <section class="screen main-screen">
       <div class="main-panel">
+        <div class="release-banner">UPDATE v${state.releaseNumber}</div>
         <div class="title-area">
           <h1>Clover 반복 타이머</h1>
           <p>시간을 터치하면 바로 시작됩니다</p>
@@ -130,6 +132,7 @@ function renderMain() {
 }
 
 function renderTimer() {
+  document.title = `Clover Timer v${state.releaseNumber}`;
   const durationMs = state.selectedDuration * 1000;
   const displaySeconds = Math.floor(state.elapsedMs / 1000);
   const isFlashing = state.elapsedMs >= durationMs - 3000 && state.elapsedMs < durationMs;
@@ -137,7 +140,7 @@ function renderTimer() {
   app.innerHTML = `
     <section class="screen timer-screen ${isFlashing ? "flash" : ""}" data-timer-screen>
       <button class="main-button" type="button" data-main-button>MAIN</button>
-      <div class="release-badge">R${state.releaseNumber}</div>
+      <div class="release-badge">UPDATE v${state.releaseNumber}</div>
       <div class="adjust-panel" aria-label="타이머 조정">
         <div class="adjust-group" aria-label="미세조정">
           <button class="adjust-button micro" type="button" data-adjust="${-MICRO_STEP}">-0.1</button>
