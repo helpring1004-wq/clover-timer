@@ -180,6 +180,7 @@ button {
   line-height: 0.9;
   font-weight: 900;
   letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
 .unit {
