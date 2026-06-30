@@ -76,14 +76,9 @@ function updateCountdown() {
 
   const countdown = document.querySelector("[data-countdown]");
   const screen = document.querySelector("[data-timer-screen]");
-  const status = document.querySelector("[data-status]");
 
   if (countdown) {
     countdown.textContent = String(Math.floor(cycleElapsedMs / 1000));
-  }
-
-  if (status) {
-    status.textContent = `${state.selectedDuration.toFixed(1)}초 반복 중`;
   }
 
   if (screen) {
@@ -126,7 +121,6 @@ function renderMain() {
 function renderTimer() {
   const durationMs = state.selectedDuration * 1000;
   const displaySeconds = Math.floor(state.elapsedMs / 1000);
-  const preciseSeconds = state.selectedDuration;
   const isFlashing = state.elapsedMs >= durationMs - 3000 && state.elapsedMs < durationMs;
 
   app.innerHTML = `
@@ -149,7 +143,7 @@ function renderTimer() {
       <button class="timer-face" type="button" data-reset-area>
         <div class="countdown" data-countdown>${displaySeconds}</div>
         <div class="unit">초</div>
-        <div class="status" data-status>${preciseSeconds.toFixed(1)}초 반복 중</div>
+        <div class="status">${state.selectedDuration.toFixed(1)}초 반복 중</div>
         <div class="hint">화면을 터치하면 처음부터 다시 시작됩니다</div>
       </button>
     </section>
