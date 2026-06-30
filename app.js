@@ -56,8 +56,7 @@ function adjustTimer(deltaSeconds) {
 }
 
 function hideReleaseBadge() {
-  state.releaseNumber = 0;
-  render();
+  return;
 }
 
 function startTicker() {
@@ -188,7 +187,6 @@ function renderTimer() {
   if (releaseBadge) {
     releaseBadge.addEventListener("pointerdown", (event) => {
       event.stopPropagation();
-      hideReleaseBadge();
     });
   }
 }
