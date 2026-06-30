@@ -3,6 +3,7 @@ const app = document.getElementById("app");
 
 const state = {
   selectedDuration: null,
+  repeatLabel: null,
   startedAt: null,
   intervalId: null,
   elapsedMs: 0,
@@ -15,6 +16,7 @@ const LARGE_STEP = 10;
 function goMain() {
   stopTicker();
   state.selectedDuration = null;
+  state.repeatLabel = null;
   state.startedAt = null;
   state.elapsedMs = 0;
   render();
@@ -22,6 +24,7 @@ function goMain() {
 
 function startTimer(duration) {
   state.selectedDuration = duration;
+  state.repeatLabel = duration.toFixed(1);
   restartTimer();
 }
 
@@ -44,6 +47,7 @@ function adjustTimer(deltaSeconds) {
   const nextDuration = Math.max(0.1, Math.round((state.selectedDuration + deltaSeconds) * 10) / 10);
 
   state.selectedDuration = nextDuration;
+  state.repeatLabel = nextDuration.toFixed(1);
   state.startedAt = Date.now();
   state.elapsedMs = 0;
   startTicker();
@@ -143,7 +147,7 @@ function renderTimer() {
       <button class="timer-face" type="button" data-reset-area>
         <div class="countdown" data-countdown>${displaySeconds}</div>
         <div class="unit">초</div>
-        <div class="status">${state.selectedDuration.toFixed(1)}초 반복 중</div>
+        <div class="status">${state.repeatLabel ?? state.selectedDuration.toFixed(1)}초 반복 중</div>
         <div class="hint">화면을 터치하면 처음부터 다시 시작됩니다</div>
       </button>
     </section>
