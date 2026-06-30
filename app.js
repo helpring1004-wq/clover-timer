@@ -83,7 +83,7 @@ function updateCountdown() {
   }
 
   if (status) {
-    status.textContent = `${(cycleElapsedMs / 1000).toFixed(1)}초 반복 중`;
+    status.textContent = `${(state.selectedDuration + cycleElapsedMs / 1000).toFixed(1)}초 반복 중`;
   }
 
   if (screen) {
@@ -126,7 +126,7 @@ function renderMain() {
 function renderTimer() {
   const durationMs = state.selectedDuration * 1000;
   const displaySeconds = Math.floor(state.elapsedMs / 1000);
-  const preciseSeconds = state.elapsedMs / 1000;
+  const preciseSeconds = state.selectedDuration + state.elapsedMs / 1000;
   const isFlashing = state.elapsedMs >= durationMs - 3000 && state.elapsedMs < durationMs;
 
   app.innerHTML = `
