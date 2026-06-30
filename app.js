@@ -4,6 +4,7 @@ const app = document.getElementById("app");
 const state = {
   selectedDuration: null,
   repeatLabel: null,
+  releaseNumber: 1,
   startedAt: null,
   intervalId: null,
   elapsedMs: 0,
@@ -48,9 +49,15 @@ function adjustTimer(deltaSeconds) {
 
   state.selectedDuration = nextDuration;
   state.repeatLabel = nextDuration.toFixed(1);
+  state.releaseNumber += 1;
   state.startedAt = Date.now();
   state.elapsedMs = 0;
   startTicker();
+  render();
+}
+
+function hideReleaseBadge() {
+  state.releaseNumber = 0;
   render();
 }
 
@@ -130,6 +137,7 @@ function renderTimer() {
   app.innerHTML = `
     <section class="screen timer-screen ${isFlashing ? "flash" : ""}" data-timer-screen>
       <button class="main-button" type="button" data-main-button>MAIN</button>
+      <div class="release-badge">릴리즈 ${state.releaseNumber}</div>
       <div class="adjust-panel" aria-label="타이머 조정">
         <div class="adjust-group" aria-label="미세조정">
           <button class="adjust-button micro" type="button" data-adjust="${-MICRO_STEP}">-0.1</button>
@@ -156,6 +164,7 @@ function renderTimer() {
   const mainButton = app.querySelector("[data-main-button]");
   const resetArea = app.querySelector("[data-reset-area]");
   const adjustButtons = app.querySelectorAll("[data-adjust]");
+  const releaseBadge = app.querySelector(".release-badge");
 
   mainButton.addEventListener("pointerdown", (event) => {
     event.stopPropagation();
@@ -173,6 +182,13 @@ function renderTimer() {
       adjustTimer(Number(button.getAttribute("data-adjust")));
     });
   });
+
+  if (releaseBadge) {
+    releaseBadge.addEventListener("pointerdown", (event) => {
+      event.stopPropagation();
+      hideReleaseBadge();
+    });
+  }
 }
 
 function render() {

@@ -123,6 +123,23 @@ button {
   transform: scale(0.97);
 }
 
+.release-badge {
+  position: absolute;
+  top: max(18px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(10px);
+}
+
 .adjust-panel {
   position: absolute;
   top: max(16px, env(safe-area-inset-top));
