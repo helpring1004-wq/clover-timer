@@ -1,6 +1,6 @@
-﻿{
-  "name": "?щ줈踰?諛섎났 ??대㉧",
-  "short_name": "?щ줈踰?,
+{
+  "name": "Clover Timer v2",
+  "short_name": "Clover v2",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
