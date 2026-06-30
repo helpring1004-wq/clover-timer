@@ -137,7 +137,7 @@ function renderTimer() {
   app.innerHTML = `
     <section class="screen timer-screen ${isFlashing ? "flash" : ""}" data-timer-screen>
       <button class="main-button" type="button" data-main-button>MAIN</button>
-      <div class="release-badge">릴리즈 ${state.releaseNumber}</div>
+      <div class="release-badge">R${state.releaseNumber}</div>
       <div class="adjust-panel" aria-label="타이머 조정">
         <div class="adjust-group" aria-label="미세조정">
           <button class="adjust-button micro" type="button" data-adjust="${-MICRO_STEP}">-0.1</button>
@@ -203,7 +203,8 @@ function render() {
 render();
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(() => null);
+  window.addEventListener("load", async () => {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(registrations.map((registration) => registration.unregister()));
   });
 }
