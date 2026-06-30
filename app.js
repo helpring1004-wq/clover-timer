@@ -8,6 +8,10 @@ const state = {
   elapsedMs: 0,
 };
 
+const MICRO_STEP = 0.1;
+const NORMAL_STEP = 1;
+const LARGE_STEP = 10;
+
 function goMain() {
   stopTicker();
   state.selectedDuration = null;
@@ -37,7 +41,7 @@ function adjustTimer(deltaSeconds) {
     return;
   }
 
-  const nextDuration = Math.max(1, state.selectedDuration + deltaSeconds);
+  const nextDuration = Math.max(0.1, Math.round((state.selectedDuration + deltaSeconds) * 10) / 10);
 
   state.selectedDuration = nextDuration;
   state.startedAt = Date.now();
@@ -74,7 +78,8 @@ function updateCountdown() {
   const screen = document.querySelector("[data-timer-screen]");
 
   if (countdown) {
-    countdown.textContent = String(Math.floor(cycleElapsedMs / 1000));
+    const elapsedSeconds = cycleElapsedMs / 1000;
+    countdown.textContent = elapsedSeconds.toFixed(elapsedSeconds % 1 === 0 ? 0 : 1);
   }
 
   if (screen) {
@@ -90,7 +95,7 @@ function renderMain() {
     <section class="screen main-screen">
       <div class="main-panel">
         <div class="title-area">
-          <h1>크로버 반복 타이머</h1>
+          <h1>Clover 반복 타이머</h1>
           <p>시간을 터치하면 바로 시작됩니다</p>
         </div>
         <div class="timer-grid">
@@ -116,23 +121,31 @@ function renderMain() {
 
 function renderTimer() {
   const durationMs = state.selectedDuration * 1000;
-  const elapsedSeconds = Math.floor(state.elapsedMs / 1000);
-  const isFlashing =
-    state.elapsedMs >= durationMs - 3000 && state.elapsedMs < durationMs;
+  const elapsedSeconds = state.elapsedMs / 1000;
+  const displaySeconds = elapsedSeconds.toFixed(elapsedSeconds % 1 === 0 ? 0 : 1);
+  const isFlashing = state.elapsedMs >= durationMs - 3000 && state.elapsedMs < durationMs;
 
   app.innerHTML = `
     <section class="screen timer-screen ${isFlashing ? "flash" : ""}" data-timer-screen>
       <button class="main-button" type="button" data-main-button>MAIN</button>
       <div class="adjust-panel" aria-label="타이머 조정">
-        <button class="adjust-button" type="button" data-adjust="-10">-10</button>
-        <button class="adjust-button" type="button" data-adjust="-1">-1</button>
-        <button class="adjust-button" type="button" data-adjust="+1">+1</button>
-        <button class="adjust-button" type="button" data-adjust="+10">+10</button>
+        <div class="adjust-group" aria-label="미세조정">
+          <button class="adjust-button micro" type="button" data-adjust="${-MICRO_STEP}">-0.1</button>
+          <button class="adjust-button micro" type="button" data-adjust="${MICRO_STEP}">+0.1</button>
+        </div>
+        <div class="adjust-group" aria-label="기본조정">
+          <button class="adjust-button" type="button" data-adjust="${-NORMAL_STEP}">-1</button>
+          <button class="adjust-button" type="button" data-adjust="${NORMAL_STEP}">+1</button>
+        </div>
+        <div class="adjust-group" aria-label="대폭조정">
+          <button class="adjust-button" type="button" data-adjust="${-LARGE_STEP}">-10</button>
+          <button class="adjust-button" type="button" data-adjust="${LARGE_STEP}">+10</button>
+        </div>
       </div>
       <button class="timer-face" type="button" data-reset-area>
-        <div class="countdown" data-countdown>${elapsedSeconds}</div>
+        <div class="countdown" data-countdown>${displaySeconds}</div>
         <div class="unit">초</div>
-        <div class="status">${state.selectedDuration}초 반복 중</div>
+        <div class="status">${state.selectedDuration.toFixed(1)}초 반복 중</div>
         <div class="hint">화면을 터치하면 처음부터 다시 시작됩니다</div>
       </button>
     </section>
@@ -171,10 +184,8 @@ function render() {
 
 render();
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch(() => {
-      return null;
-    });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => null);
   });
 }

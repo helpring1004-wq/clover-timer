@@ -128,8 +128,16 @@ button {
   top: max(16px, env(safe-area-inset-top));
   right: 16px;
   z-index: 2;
+  display: grid;
+  gap: 8px;
+  justify-items: end;
+}
+
+.adjust-group {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .adjust-button {
@@ -146,6 +154,11 @@ button {
 
 .adjust-button:active {
   transform: scale(0.96);
+}
+
+.adjust-button.micro {
+  min-width: 64px;
+  background: rgba(34, 197, 94, 0.16);
 }
 
 .timer-face {
@@ -222,15 +235,21 @@ button {
     top: max(10px, env(safe-area-inset-top));
     right: 10px;
     gap: 6px;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    width: min(180px, calc(100vw - 120px));
+    width: min(220px, calc(100vw - 120px));
+  }
+
+  .adjust-group {
+    gap: 6px;
   }
 
   .adjust-button {
     min-width: 46px;
     padding: 9px 10px;
     font-size: 12px;
+  }
+
+  .adjust-button.micro {
+    min-width: 58px;
   }
 
   .timer-face {
