@@ -121,7 +121,7 @@ function renderMain() {
 function renderTimer() {
   const durationMs = state.selectedDuration * 1000;
   const displaySeconds = Math.floor(state.elapsedMs / 1000);
-  const preciseSeconds = (state.selectedDuration + state.elapsedMs / 1000) % state.selectedDuration;
+  const preciseSeconds = state.elapsedMs / 1000;
   const isFlashing = state.elapsedMs >= durationMs - 3000 && state.elapsedMs < durationMs;
 
   app.innerHTML = `
