@@ -49,7 +49,6 @@ function adjustTimer(deltaSeconds) {
 
   state.selectedDuration = nextDuration;
   state.repeatLabel = nextDuration.toFixed(1);
-  state.releaseNumber += 1;
   state.startedAt = Date.now();
   state.elapsedMs = 0;
   startTicker();
